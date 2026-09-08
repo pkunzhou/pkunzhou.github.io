@@ -1,6 +1,6 @@
 /* ── Design tokens ── */
 :root {
-  --hue: 168;                          /* teal-green — change to shift the whole palette */
+  --hue: 210;                          /* ocean blue — change to shift the whole palette */
 
   --sidebar-bg:   oklch(38% 0.09 var(--hue));
   --sidebar-hover:oklch(46% 0.09 var(--hue));
