@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pengcheng Zhou</title>
+  <style>
+    /* ── Tokens (matched to cs.stanford.edu/~shirwu) ── */
+    :root {
+      --sidebar-bg:   #4a7c6f;
+      --sidebar-hover:#3a6359;
+      --accent:       #4a7c6f;
+      --accent-link:  #2e7d6b;
+      --red:          #c0392b;
+      --surface:      #ffffff;
+      --gray-1:       #f5f5f5;
+      --gray-2:       #e8e8e8;
+      --gray-3:       #cccccc;
+      --muted:        #666666;
+      --text:         #222222;
+      --border:       #dddddd;
+      --link-blue:    #2980b9;   /* inline body links */
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--text);
+      background: var(--surface);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent-link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 230px;
+      min-width: 230px;
+      background: var(--sidebar-bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 36px 12px 24px;
+      gap: 24px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar img {
+      width: 170px;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+    }
+
+    /* placeholder shown when photo.jpg is missing */
+    .sidebar .photo-placeholder {
+      width: 170px;
+      height: 210px;
+      border-radius: 4px;
+      background: #3a6359;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.5);
+      font-size: 13px;
+      text-align: center;
+      padding: 12px;
+      line-height: 1.4;
+    }
+
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 2px;
+    }
+
+    .sidebar nav a {
+      color: rgba(255,255,255,0.88);
+      font-size: 13px;
+      padding: 7px 14px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 140ms;
+    }
+
+    .sidebar nav a::before {
+      content: "○";
+      font-size: 9px;
+      opacity: 0.6;
+      flex-shrink: 0;
+    }
+
+    .sidebar nav a:hover,
+    .sidebar nav a.active {
+      background: var(--sidebar-hover);
+      text-decoration: none;
+      color: #fff;
+    }
+
+    /* ── Main ── */
+    .main {
+      flex: 1;
+      padding: 40px 52px 60px;
+      max-width: 900px;
+    }
+
+    section { margin-bottom: 52px; }
+
+    /* ── Name / About ── */
+    #about h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2.1rem;
+      font-weight: normal;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    #about p {
+      max-width: 68ch;
+      margin-bottom: 11px;
+      font-size: 14px;
+    }
+
+    .links-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .links-row a {
+      font-size: 12.5px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .links-row a:hover { color: var(--accent-link); }
+
+    /* ── Section heading (matches Shirley's "What's / New" two-line style) ── */
+    .sec-head {
+      margin-bottom: 14px;
+    }
+
+    .sec-head h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.25rem;
+      font-weight: bold;
+      line-height: 1.15;
+      color: var(--text);
+    }
+
+    .sec-head .sub {
+      display: block;
+      color: var(--accent);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+
+    /* ── News ── */
+    .news-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-width: 74ch;
+    }
+
+    .news-list li {
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .news-list .date {
+      color: var(--muted);
+      margin-right: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .news-list .award {
+      color: var(--red);
+      font-weight: 600;
+    }
+
+    .news-list .bold { font-weight: 600; }
+
+    /* ── Research tabs ── */
+    .tab-bar {
+      display: flex;
+      border: 1px solid var(--border);
+      border-radius: 3px 3px 0 0;
+      overflow: hidden;
+    }
+
+    .tab-bar button {
+      flex: 1;
+      padding: 10px 8px;
+      background: var(--gray-1);
+      border: none;
+      border-right: 1px solid var(--border);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      transition: background 130ms, color 130ms;
+      line-height: 1.3;
+    }
+
+    .tab-bar button:last-child { border-right: none; }
+    .tab-bar button:hover { background: #d4e8e2; }
+    .tab-bar button.active {
+      background: var(--sidebar-bg);
+      color: #fff;
+    }
+
+    .tab-panels {
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 4px 4px;
+      padding: 22px;
+      min-height: 220px;
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active {
+      display: flex;
+      gap: 22px;
+      align-items: flex-start;
+    }
+
+    .tab-panel figure {
+      flex: 0 0 260px;
+      margin: 0;
+    }
+
+    .tab-panel figure img,
+    .tab-panel .fig-placeholder {
+      width: 100%;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+      display: block;
+    }
+
+    .tab-panel .fig-placeholder {
+      height: 160px;
+      background: var(--gray-1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .paper-meta { flex: 1; min-width: 0; }
+
+    .paper-meta h3 {
+      font-size: 14.5px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .venue-tag {
+      display: inline-block;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .paper-meta p {
+      font-size: 13px;
+      margin-bottom: 5px;
+      color: var(--muted);
+    }
+
+    .paper-meta p b { color: var(--text); }
+
+    .btn-row { display: flex; gap: 8px; margin-top: 14px; }
+
+    .btn {
+      padding: 3px 14px;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-size: 12px;
+      cursor: pointer;
+      color: var(--text);
+      transition: background 130ms;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn:hover { background: #d4e8e2; text-decoration: none; }
+
+    /* ── Publications ── */
+    .pub-list {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 74ch;
+    }
+
+    .pub-list li { font-size: 13px; line-height: 1.65; }
+
+    .pub-link {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 0 7px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .pub-link:hover {
+      color: var(--accent-link);
+      border-color: var(--accent-link);
+      text-decoration: none;
+    }
+
+    /* ── Projects table ── */
+    .proj-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .proj-table th,
+    .proj-table td {
+      text-align: left;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .proj-table th {
+      font-weight: 600;
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      background: var(--gray-1);
+    }
+
+    .proj-table tr:hover td { background: #f0f8f5; }
+
+    .pi-badge {
+      display: inline-block;
+      padding: 1px 7px;
+      border-radius: 10px;
+      background: var(--sidebar-bg);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* ── Experience ── */
+    .exp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .exp-list li {
+      display: flex;
+      gap: 24px;
+      font-size: 13px;
+    }
+
+    .exp-period {
+      flex: 0 0 100px;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      padding-top: 1px;
+      font-size: 12.5px;
+    }
+
+    .exp-body strong { font-weight: 600; }
+    .exp-body .inst  { color: var(--muted); }
+
+    /* ── Divider ── */
+    hr {
+      border: none;
+      border-top: 1px solid var(--gray-2);
+      margin: 0 0 52px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 720px) {
+      body { flex-direction: column; }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 16px 12px;
+        gap: 16px;
+      }
+
+      .sidebar img,
+      .sidebar .photo-placeholder { width: 72px; height: 90px; }
+
+      .sidebar nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: auto;
+      }
+
+      .sidebar nav a { font-size: 12px; padding: 5px 10px; }
+
+      .main { padding: 28px 18px 48px; }
+
+      .tab-panel.active { flex-direction: column; }
+      .tab-panel figure { flex: none; width: 100%; }
+
+      .exp-list li { flex-direction: column; gap: 2px; }
+      .exp-period { flex: none; }
+
+      .proj-table { font-size: 12px; }
+      .proj-table th,
+      .proj-table td { padding: 6px 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Sidebar ── -->
+<aside class="sidebar">
+  <!--
+    Replace the placeholder below with:
+    <img src="photo.jpg" alt="Pengcheng Zhou" />
+  -->
+  <div class="photo-placeholder">Your photo here<br/>(add photo.jpg)</div>
+
+  <nav aria-label="Page sections">
+    <a href="#about">About Me</a>
+    <a href="#news">What's New</a>
+    <a href="#research">Research Topics</a>
+    <a href="#publications">Publications</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+  </nav>
+</aside>
+
+<!-- ── Main ── -->
+<main class="main">
+
+  <!-- About -->
+  <section id="about">
+    <h1>Pengcheng Zhou</h1>
+
+    <p>
+      I am an Assistant Researcher at the
+      <a href="http://www.scsio.ac.cn/" target="_blank" rel="noopener">South China Sea Institute of Oceanology,
+      Chinese Academy of Sciences (SCSIO, CAS)</a>, in the Laboratory of Marginal Sea and Oceanic Geology.
+      My research focuses on oceanic transform fault seismicity, slow-spreading mid-ocean ridge tectonics,
+      and seismic hazard along subduction zones.
+    </p>
+
+    <p>
+      I received my Ph.D. in Earth and Atmospheric Sciences from
+      <a href="https://www.cuhk.edu.hk/" target="_blank" rel="noopener">The Chinese University of Hong Kong</a>
+      (2016–2021), during which I visited
+      <a href="https://earth.stanford.edu/" target="_blank" rel="noopener">Stanford University</a>
+      (Seismology, 2019–2020). I hold an M.S. in Solid Earth Geophysics from
+      <a href="https://www.pku.edu.cn/" target="_blank" rel="noopener">Peking University</a>
+      and a B.S. in Exploration Technology and Engineering from
+      <a href="https://www.xsyu.edu.cn/" target="_blank" rel="noopener">Xi'an Shiyou University</a>.
+    </p>
+
+    <div class="links-row">
+      <a href="mailto:zhoupengcheng@scsio.ac.cn">✉ zhoupengcheng@scsio.ac.cn</a>
+      <a href="https://scholar.google.com/"       target="_blank" rel="noopener">🎓 Google Scholar</a>
+      <a href="https://github.com/pkunzhou"        target="_blank" rel="noopener">🐙 GitHub</a>
+      <a href="https://orcid.org/"                target="_blank" rel="noopener">🔗 ORCID</a>
+      <a href="https://www.researchgate.net/"      target="_blank" rel="noopener">📄 ResearchGate</a>
+    </div>
+  </section>
+
+  <!-- What's New -->
+  <section id="news">
+    <div class="sec-head">
+      <h2>What's <span class="sub">New</span></h2>
+    </div>
+    <ul class="news-list">
+      <li>
+        <span class="date">[2026-08]</span>
+        <span class="bold">New NSFC General Project awarded (42676072)</span> —
+        The team will dive into microseismicity of ultra-slow spreading ridges (2027–2030).
+      </li>
+      <li>
+        <span class="date">[2025-12]</span>
+        OBS field expedition to the Southwest Indian Ridge (67.5°E–68.5°E) completed —
+        14 instruments deployed, 349 microearthquakes recorded.
+      </li>
+      <li>
+        <span class="date">[2023-08]</span>
+        <span class="award">NSFC Youth Fund (C) awarded (42306093)</span> —
+        The team explores oceanic transform fault seismicity and brittle deformation,
+        using the Blanco Transform as a case study (2024–2026).
+      </li>
+      <li>
+        <span class="date">[2023-01]</span>
+        Guangdong Natural Science Foundation project (2023A1515011709) started on
+        machine-learning characterization of Loki's Castle hydrothermal seismicity (2023–2025).
+      </li>
+    </ul>
+  </section>
+
+  <!-- Research Topics -->
+  <section id="research">
+    <div class="sec-head">
+      <h2>Research <span class="sub">Topics</span></h2>
+    </div>
+
+    <div class="tab-bar" role="tablist">
+      <button role="tab" aria-selected="true"  aria-controls="panel-otf"  class="active" onclick="switchTab(this,'panel-otf')">Transform Faults</button>
+      <button role="tab" aria-selected="false" aria-controls="panel-swir"           onclick="switchTab(this,'panel-swir')">Slow-Spreading Ridges</button>
+      <button role="tab" aria-selected="false" aria-controls="panel-sub"            onclick="switchTab(this,'panel-sub')">Subduction Zones</button>
+      <button role="tab" aria-selected="false" aria-controls="panel-ml"             onclick="switchTab(this,'panel-ml')">ML in Seismology</button>
+    </div>
+
+    <div class="tab-panels">
+
+      <!-- Transform Faults -->
+      <div id="panel-otf" class="tab-panel active" role="tabpanel">
+        <figure>
+          <div class="fig-placeholder">fig-otf.png</div>
+          <!-- <img src="fig-otf.png" alt="OTF seismicity map" /> -->
+        </figure>
+        <div class="paper-meta">
+          <span class="venue-tag">NSFC Youth Fund · 2024–2026</span>
+          <h3>Seismicity and Brittle Deformation of Oceanic Transform Faults</h3>
+          <p>Case study: Blanco Transform Fault System, NE Pacific</p>
+          <p><b>Question:</b> What controls along-strike segmentation into seismic and aseismic slip patches?</p>
+          <p><b>Approach:</b> OBS microseismicity catalog, focal mechanism inversion, Coulomb stress modeling.</p>
+          <p><b>Key insight:</b> Elevated pore-fluid pressure within barrier segments promotes reverse and oblique-reverse faulting, making focal mechanism diversity a direct proxy for fault mechanical state.</p>
+          <div class="btn-row">
+            <a href="#" class="btn">Paper</a>
+            <a href="#" class="btn">Code</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slow-Spreading Ridges -->
+      <div id="panel-swir" class="tab-panel" role="tabpanel">
+        <figure>
+          <div class="fig-placeholder">fig-swir.png</div>
+          <!-- <img src="fig-swir.png" alt="SWIR OBS array" /> -->
+        </figure>
+        <div class="paper-meta">
+          <span class="venue-tag">SWIR Expedition · Dec 2025</span>
+          <h3>Microseismicity and Crustal Structure along the Ultra-Slow Southwest Indian Ridge</h3>
+          <p>Study area: 67.5°E–68.5°E, eastern SWIR</p>
+          <p><b>Question:</b> How do magmatic and tectonic processes partition across a single 30 km ridge segment at &lt;16 mm/yr spreading?</p>
+          <p><b>Approach:</b> 14-OBS array; PickBlue ML phase picking; NonLinLoc + HypoDD relocation; SKHASH focal mechanisms.</p>
+          <p><b>Key insight:</b> A 10–20 km along-axis transition encodes four simultaneous structural changes invisible to teleseismic catalogs.</p>
+          <div class="btn-row">
+            <a href="#" class="btn">Paper (in prep)</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subduction Zones -->
+      <div id="panel-sub" class="tab-panel" role="tabpanel">
+        <figure>
+          <div class="fig-placeholder">fig-sub.png</div>
+          <!-- <img src="fig-sub.png" alt="Mariana subduction" /> -->
+        </figure>
+        <div class="paper-meta">
+          <span class="venue-tag">NSFC General · 2026–2029</span>
+          <h3>Deep Flexural Deformation of the Subducting Mariana Southern Plate</h3>
+          <p>Project No. 42576063 — collaborator</p>
+          <p><b>Question:</b> How does outer-rise bending stress modulate shallow seismicity and regional stress state in the Mariana system?</p>
+          <p><b>Approach:</b> Seismicity relocation, stress inversion, finite-element flexure modeling.</p>
+          <p><b>Relevance:</b> Links plate bending, intraslab hydration, and seismic hazard in the Western Pacific.</p>
+          <div class="btn-row">
+            <a href="#" class="btn">More info</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ML in Seismology -->
+      <div id="panel-ml" class="tab-panel" role="tabpanel">
+        <figure>
+          <div class="fig-placeholder">fig-ml.png</div>
+          <!-- <img src="fig-ml.png" alt="ML seismology" /> -->
+        </figure>
+        <div class="paper-meta">
+          <span class="venue-tag">Guangdong NSF · 2023–2025</span>
+          <h3>Machine-Learning Characterization of Hydrothermal Seismicity</h3>
+          <p>Case study: Loki's Castle hydrothermal vent field</p>
+          <p><b>Question:</b> Can deep-learning phase pickers (PickBlue) generalize from OBS training sets to hydrothermal noise environments?</p>
+          <p><b>Approach:</b> Transfer learning on OBS waveforms, template matching, seismicity migration analysis.</p>
+          <p><b>Relevance:</b> Opens ML seismology to non-standard, high-noise seafloor settings.</p>
+          <div class="btn-row">
+            <a href="#" class="btn">Paper</a>
+            <a href="#" class="btn">Code</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Publications -->
+  <section id="publications">
+    <div class="sec-head">
+      <h2>Selected <span class="sub">Publications</span></h2>
+    </div>
+    <ol class="pub-list">
+      <li>
+        <strong>Zhou, P.</strong>, et al. (in prep).
+        Microseismicity and crustal heterogeneity along the ultra-slow Southwest Indian Ridge
+        (67.5°E–68.5°E): insights from a near-field OBS deployment.
+        <em>Target: Journal of Geophysical Research: Solid Earth.</em>
+      </li>
+      <li>
+        <strong>Zhou, P.</strong>, et al. (add year).
+        [Your published paper title here].
+        <em>Journal name</em>, vol, pages.
+        <a href="#" class="pub-link">PDF</a>
+        <a href="#" class="pub-link">DOI</a>
+      </li>
+      <li>
+        Add further publications here — include journal, year, DOI.
+      </li>
+    </ol>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="sec-head">
+      <h2>Research <span class="sub">Projects</span></h2>
+    </div>
+    <table class="proj-table">
+      <thead>
+        <tr>
+          <th>Period</th>
+          <th>Funding</th>
+          <th>Grant No.</th>
+          <th>Topic</th>
+          <th>Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2027–2030</td>
+          <td>NSFC General</td>
+          <td>42676072</td>
+          <td>Microseismicity of ultra-slow spreading mid-ocean ridges</td>
+          <td><span class="pi-badge">PI</span></td>
+        </tr>
+        <tr>
+          <td>2026–2029</td>
+          <td>NSFC General</td>
+          <td>42576063</td>
+          <td>Flexural deformation of the Mariana Southern subducting plate</td>
+          <td>Participant</td>
+        </tr>
+        <tr>
+          <td>2024–2026</td>
+          <td>NSFC Youth (C)</td>
+          <td>42306093</td>
+          <td>OTF seismicity &amp; brittle deformation — Blanco TF case study</td>
+          <td><span class="pi-badge">PI</span></td>
+        </tr>
+        <tr>
+          <td>2023–2026</td>
+          <td>NSFC General</td>
+          <td>42276222</td>
+          <td>Rupture structure of NIO Makran accretionary wedge &amp; M8 controls</td>
+          <td>Participant</td>
+        </tr>
+        <tr>
+          <td>2023–2025</td>
+          <td>Guangdong NSF</td>
+          <td>2023A1515011709</td>
+          <td>ML characterization of Loki's Castle hydrothermal seismicity</td>
+          <td><span class="pi-badge">PI</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience">
+    <div class="sec-head">
+      <h2>Education &amp; <span class="sub">Experience</span></h2>
+    </div>
+    <ul class="exp-list">
+      <li>
+        <span class="exp-period">2021 – present</span>
+        <div class="exp-body">
+          <strong>Assistant Researcher</strong>, Laboratory of Marginal Sea and Oceanic Geology<br />
+          <span class="inst">South China Sea Institute of Oceanology, CAS, Guangzhou</span>
+        </div>
+      </li>
+      <li>
+        <span class="exp-period">2019 – 2020</span>
+        <div class="exp-body">
+          <strong>Visiting Student</strong>, Seismology Group<br />
+          <span class="inst">Stanford University, USA</span>
+        </div>
+      </li>
+      <li>
+        <span class="exp-period">2016 – 2021</span>
+        <div class="exp-body">
+          <strong>Ph.D.</strong>, Earth and Atmospheric Sciences<br />
+          <span class="inst">The Chinese University of Hong Kong</span>
+        </div>
+      </li>
+      <li>
+        <span class="exp-period">2012 – 2016</span>
+        <div class="exp-body">
+          <strong>M.S.</strong>, Solid Earth Geophysics<br />
+          <span class="inst">Peking University, Beijing</span>
+        </div>
+      </li>
+      <li>
+        <span class="exp-period">2008 – 2012</span>
+        <div class="exp-body">
+          <strong>B.S.</strong>, Exploration Technology and Engineering<br />
+          <span class="inst">Xi'an Shiyou University</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+<script>
+  function switchTab(btn, panelId) {
+    document.querySelectorAll('.tab-bar button').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    document.getElementById(panelId).classList.add('active');
+  }
+
+  // Highlight active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.sidebar nav a');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`.sidebar nav a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
