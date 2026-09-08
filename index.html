@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pengcheng Zhou | SCSIO</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <img src="photo.jpg" alt="Pengcheng Zhou" />
+    <nav aria-label="Page sections">
+      <a href="#about">About Me</a>
+      <a href="#news">What's New</a>
+      <a href="#research">Research Topics</a>
+      <a href="#publications">Publications</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+    </nav>
+  </aside>
+
+  <!-- ── Main ── -->
+  <main class="main">
+
+    <!-- About -->
+    <section id="about">
+      <h1>Pengcheng Zhou</h1>
+      <p>
+        I am an Assistant Researcher at the
+        <a href="http://www.scsio.ac.cn/" target="_blank" rel="noopener">
+          South China Sea Institute of Oceanology, Chinese Academy of Sciences (SCSIO, CAS)</a>,
+        in the Laboratory of Marginal Sea and Oceanic Geology.
+        My research focuses on oceanic transform fault seismicity, slow-spreading
+        mid-ocean ridge tectonics, and seismic hazard along subduction zones.
+      </p>
+      <p>
+        I received my Ph.D. in Earth and Atmospheric Sciences from
+        <a href="https://www.cuhk.edu.hk/" target="_blank" rel="noopener">The Chinese University of Hong Kong</a>
+        (2016–2021), during which I visited
+        <a href="https://earth.stanford.edu/" target="_blank" rel="noopener">Stanford University</a>
+        (Seismology, 2019–2020). I hold an M.S. in Solid Earth Geophysics from
+        <a href="https://www.pku.edu.cn/" target="_blank" rel="noopener">Peking University</a>
+        and a B.S. in Exploration Technology and Engineering from
+        <a href="https://www.xsyu.edu.cn/" target="_blank" rel="noopener">Xi'an Shiyou University</a>.
+      </p>
+      <div class="links-row">
+        <a href="mailto:zhoupengcheng@scsio.ac.cn">✉ zhoupengcheng@scsio.ac.cn</a>
+        <a href="https://scholar.google.com/" target="_blank" rel="noopener">🎓 Google Scholar</a>
+        <a href="https://github.com/pengchengzhou" target="_blank" rel="noopener">🐙 GitHub</a>
+        <a href="https://orcid.org/" target="_blank" rel="noopener">🔗 ORCID</a>
+        <a href="https://www.researchgate.net/" target="_blank" rel="noopener">📄 ResearchGate</a>
+      </div>
+    </section>
+
+    <!-- What's New -->
+    <section id="news">
+      <div class="section-heading">
+        <h2>What's <span class="accent">New</span></h2>
+      </div>
+      <ul class="news-list">
+        <li>
+          <span class="date">[2026-01]</span>
+          New NSFC general project (42576063) started on deformation of the subducting
+          Mariana Southern plate — 2026–2029.
+        </li>
+        <li>
+          <span class="date">[2025-12]</span>
+          OBS field expedition to the Southwest Indian Ridge (67.5°E–68.5°E) completed —
+          14 instruments deployed, 349 microearthquakes recorded.
+        </li>
+        <li>
+          <span class="date">[2024-01]</span>
+          <span class="highlight">NSFC Youth Fund (42306093) awarded</span> — oceanic
+          transform fault seismicity and brittle deformation, using the Blanco Transform
+          as a case study (2024–2026).
+        </li>
+        <li>
+          <span class="date">[2023-01]</span>
+          Guangdong Natural Science Foundation project (2023A1515011709) started on
+          machine-learning characterization of Lascar volcano hydrothermal seismicity.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Research Topics -->
+    <section id="research">
+      <div class="section-heading">
+        <h2>Research <span class="accent">Topics</span></h2>
+      </div>
+      <div class="tab-bar" role="tablist">
+        <button role="tab" aria-selected="true"  aria-controls="panel-otf"  class="active" onclick="switchTab(this,'panel-otf')">Transform Faults</button>
+        <button role="tab" aria-selected="false" aria-controls="panel-swir"           onclick="switchTab(this,'panel-swir')">Slow-Spreading Ridges</button>
+        <button role="tab" aria-selected="false" aria-controls="panel-sub"            onclick="switchTab(this,'panel-sub')">Subduction Zones</button>
+        <button role="tab" aria-selected="false" aria-controls="panel-ml"             onclick="switchTab(this,'panel-ml')">ML in Seismology</button>
+      </div>
+      <div class="tab-panels">
+
+        <!-- Transform Faults -->
+        <div id="panel-otf" class="tab-panel active" role="tabpanel">
+          <figure>
+            <img src="fig-otf.png" alt="Oceanic transform fault seismicity" />
+          </figure>
+          <div class="paper-meta">
+            <span class="venue-tag">NSFC Youth Fund · 2024–2026</span>
+            <h3>Seismicity and Brittle Deformation of Oceanic Transform Faults</h3>
+            <p>Case study: Blanco Transform Fault System, NE Pacific</p>
+            <p><span>Question:</span> What controls along-strike segmentation into seismic and aseismic slip patches?</p>
+            <p><span>Approach:</span> OBS microseismicity catalog, focal mechanism inversion, Coulomb stress modeling.</p>
+            <p><span>Relevance:</span> Segmentation governs where M≥6 earthquakes nucleate on fast-slipping OTFs.</p>
+          </div>
+        </div>
+
+        <!-- Slow-Spreading Ridges -->
+        <div id="panel-swir" class="tab-panel" role="tabpanel">
+          <figure>
+            <img src="fig-swir.png" alt="Southwest Indian Ridge OBS deployment" />
+          </figure>
+          <div class="paper-meta">
+            <span class="venue-tag">SWIR Expedition · Dec 2025</span>
+            <h3>Microseismicity and Crustal Structure of the Ultra-Slow Southwest Indian Ridge</h3>
+            <p>Study area: 67.5°E – 68.5°E, eastern SWIR</p>
+            <p><span>Question:</span> How do magmatic and tectonic processes partition across a single 30 km ridge segment?</p>
+            <p><span>Approach:</span> 14-OBS array, PickBlue ML phase picking, NonLinLoc + HypoDD relocation, SKHASH focal mechanisms.</p>
+            <p><span>Relevance:</span> Resolves km-scale transitions in brittle lid depth and faulting style invisible to teleseismic catalogs.</p>
+          </div>
+        </div>
+
+        <!-- Subduction Zones -->
+        <div id="panel-sub" class="tab-panel" role="tabpanel">
+          <figure>
+            <img src="fig-sub.png" alt="Mariana subduction zone" />
+          </figure>
+          <div class="paper-meta">
+            <span class="venue-tag">NSFC General · 2026–2029</span>
+            <h3>Deep Flexural Deformation of the Subducting Mariana Southern Plate</h3>
+            <p>Project No. 42576063 — collaborator</p>
+            <p><span>Question:</span> How does outer-rise bending stress influence shallow seismicity and regional stress state?</p>
+            <p><span>Approach:</span> Seismicity relocation, stress inversion, finite-element flexure modeling.</p>
+            <p><span>Relevance:</span> Links plate bending, intraslab hydration, and seismic hazard in Western Pacific subduction systems.</p>
+          </div>
+        </div>
+
+        <!-- ML in Seismology -->
+        <div id="panel-ml" class="tab-panel" role="tabpanel">
+          <figure>
+            <img src="fig-ml.png" alt="Machine learning seismology" />
+          </figure>
+          <div class="paper-meta">
+            <span class="venue-tag">Guangdong NSF · 2023–2025</span>
+            <h3>Machine Learning Characterization of Hydrothermal Seismicity</h3>
+            <p>Case study: Lascar volcanic hydrothermal system</p>
+            <p><span>Question:</span> Can deep-learning phase pickers trained on OBS data generalize to hydrothermal noise environments?</p>
+            <p><span>Approach:</span> Transfer learning on PickBlue, waveform template matching, seismicity migration analysis.</p>
+            <p><span>Relevance:</span> Demonstrates ML applicability in non-standard seismic environments.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Publications -->
+    <section id="publications">
+      <div class="section-heading">
+        <h2>Selected <span class="accent">Publications</span></h2>
+      </div>
+      <ol class="pub-list">
+        <li>
+          <strong>Zhou, P.</strong>, et al. (in prep).
+          Microseismicity and crustal heterogeneity along the ultra-slow Southwest Indian Ridge
+          (67.5°E–68.5°E): insights from a near-field OBS deployment.
+          <em>Target: JGR: Solid Earth</em>.
+        </li>
+        <li>
+          <strong>Zhou, P.</strong>, et al. (2024).
+          Seismicity and brittle deformation along the Blanco Transform Fault System.
+          <em>Journal of Geophysical Research: Solid Earth</em>.
+          <!-- <a href="#" class="pub-link">PDF</a> <a href="#" class="pub-link">DOI</a> -->
+        </li>
+        <li>
+          Add your published papers here — include journal, year, DOI link.
+        </li>
+      </ol>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <div class="section-heading">
+        <h2>Research <span class="accent">Projects</span></h2>
+      </div>
+      <table class="proj-table">
+        <thead>
+          <tr><th>Period</th><th>Funding</th><th>Grant No.</th><th>Topic</th><th>Role</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2026–2029</td>
+            <td>NSFC General</td>
+            <td>42576063</td>
+            <td>Flexural deformation of Mariana Southern subducting plate</td>
+            <td>Participant</td>
+          </tr>
+          <tr>
+            <td>2024–2026</td>
+            <td>NSFC Youth</td>
+            <td>42306093</td>
+            <td>OTF seismicity &amp; brittle deformation — Blanco TF case study</td>
+            <td>PI</td>
+          </tr>
+          <tr>
+            <td>2023–2026</td>
+            <td>NSFC General</td>
+            <td>42276222</td>
+            <td>Rupture structure of NIO Makran accretionary wedge &amp; M8 control</td>
+            <td>Participant</td>
+          </tr>
+          <tr>
+            <td>2023–2025</td>
+            <td>Guangdong NSF</td>
+            <td>2023A1515011709</td>
+            <td>ML characterization of Lascar hydrothermal seismicity</td>
+            <td>PI</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+      <div class="section-heading">
+        <h2>Education &amp; <span class="accent">Experience</span></h2>
+      </div>
+      <ul class="exp-list">
+        <li>
+          <span class="exp-period">2021–present</span>
+          <div>
+            <strong>Assistant Researcher</strong>, Laboratory of Marginal Sea and Oceanic Geology<br />
+            South China Sea Institute of Oceanology, CAS, Guangzhou
+          </div>
+        </li>
+        <li>
+          <span class="exp-period">2019–2020</span>
+          <div>
+            <strong>Visiting Student</strong>, Seismology Group<br />
+            Stanford University, USA
+          </div>
+        </li>
+        <li>
+          <span class="exp-period">2016–2021</span>
+          <div>
+            <strong>Ph.D.</strong>, Earth and Atmospheric Sciences<br />
+            The Chinese University of Hong Kong
+          </div>
+        </li>
+        <li>
+          <span class="exp-period">2012–2016</span>
+          <div>
+            <strong>M.S.</strong>, Solid Earth Geophysics<br />
+            Peking University, Beijing
+          </div>
+        </li>
+        <li>
+          <span class="exp-period">2008–2012</span>
+          <div>
+            <strong>B.S.</strong>, Exploration Technology and Engineering<br />
+            Xi'an Shiyou University
+          </div>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <script>
+    function switchTab(btn, panelId) {
+      document.querySelectorAll('.tab-bar button').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      document.getElementById(panelId).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
